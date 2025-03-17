@@ -121,25 +121,24 @@ public class PracticeFormTest extends SharedData {
         By submitButtonElement = By.id("submit");
         elementHelper.clickJSLocator(submitButtonElement);
 
-        WebElement thankYouElement = driver.findElement(By.id("example-modal-sizes-title-lg"));
+        By thankYouElement = By.id("example-modal-sizes-title-lg");
         String expectedMessage = "Thanks for submitting the form";
-        String actualMessage = thankYouElement.getText();
-        Assert.assertEquals(actualMessage, expectedMessage);
+        elementHelper.validateTextLocator(thankYouElement, expectedMessage);
 
-        List<WebElement> rowsList = driver.findElements(By.xpath("//tbody/tr"));
-        Assert.assertTrue(rowsList.get(0).getText().contains("Student Name"));
-        Assert.assertTrue(rowsList.get(0).getText().contains(firstNameValue));
-        Assert.assertTrue(rowsList.get(0).getText().contains(lastNameValue));
-        Assert.assertTrue(rowsList.get(1).getText().contains(emailValue));
-        Assert.assertTrue(rowsList.get(2).getText().contains(genderValue));
+        By rowsListElement = By.xpath("//tbody/tr");
+        List<WebElement> rowsList = driver.findElements(rowsListElement);
+        elementHelper.validateTextContainsElement(rowsList.get(0),"Student Name");
+        elementHelper.validateTextContainsElement(rowsList.get(0), firstNameValue);
+        elementHelper.validateTextContainsElement(rowsList.get(0), lastNameValue);
+        elementHelper.validateTextContainsElement(rowsList.get(1), emailValue);
+        elementHelper.validateTextContainsElement(rowsList.get(2), genderValue);
 
-        Assert.assertTrue(rowsList.get(2).getText().contains("Gender"));
-        Assert.assertTrue(rowsList.get(2).getText().contains(genderValue));
-
+        elementHelper.validateTextContainsElement(rowsList.get(2), "Gender");
+        elementHelper.validateTextContainsElement(rowsList.get(2), genderValue);
 
         String subjectsStringValue = String.join(", ", subjects);
-        Assert.assertTrue(rowsList.get(5).getText().contains("Subjects"));
-        Assert.assertTrue(rowsList.get(5).getText().contains(subjectsStringValue));
+        elementHelper.validateTextContainsElement(rowsList.get(5), "Subjects");
+        elementHelper.validateTextContainsElement(rowsList.get(5), subjectsStringValue);
 
     }
 }
