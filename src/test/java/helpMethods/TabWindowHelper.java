@@ -21,4 +21,8 @@ public class TabWindowHelper {
     public void closeCurrentTab(){
         driver.close();
     }
+
+    public void switchToSpecificTabWindow2(String value){
+        driver.switchTo().frame(value);
+    }
 }

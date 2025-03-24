@@ -22,7 +22,11 @@ public class IndexPage {
         elementHelper.clickJSLocator(IndexLocators.alertsSubmenu);
     }
 
+    public void enterOnBrowserWindowSubmenu(){
+        elementHelper.clickJSLocator((IndexLocators.browserWindowsSubmenu));
+    }
 
-
-
+    public void enterOnFrameSubmenu(){
+        elementHelper.clickJSLocator(IndexLocators.framesSubmenu);
+    }
 }
