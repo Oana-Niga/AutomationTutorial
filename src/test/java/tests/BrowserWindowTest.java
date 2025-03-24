@@ -7,6 +7,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
+import pages.IndexPage;
 import sharedData.SharedData;
 import java.util.List;
 import java.time.Duration;
@@ -23,9 +24,9 @@ public class BrowserWindowTest extends SharedData {
 
         ElementHelper elementHelper = new ElementHelper(driver);
 
+        IndexPage indexPage = new IndexPage(driver);
+        indexPage.enterOnAlertFrameWindowMenu();
 
-        By alertFrameWindowsMenu = By.xpath("//h5[text()='Alerts, Frame & Windows']");
-        elementHelper.clickJSLocator(alertFrameWindowsMenu);
 
         By browserWindowsSubmenu = By.xpath("//span[text()='Browser Windows']");
         elementHelper.clickJSLocator(browserWindowsSubmenu);
