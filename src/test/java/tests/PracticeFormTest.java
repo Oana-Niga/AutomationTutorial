@@ -6,6 +6,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.IndexPage;
+import pages.PracticeFormPages;
 import sharedData.SharedData;
 
 import java.io.File;
@@ -18,87 +20,44 @@ public class PracticeFormTest extends SharedData {
     @Test
     public void metodaTest() {
 
-        ElementHelper elementHelper = new ElementHelper(driver);
-        PageHelper pageHelper = new PageHelper(driver);
+        IndexPage indexPage = new IndexPage(driver);
+        indexPage.enterOnFramesMenu();
+        indexPage.enterOnpracticeFormSubMenu();
 
 
-        By formsMenu = By.xpath("//h5[text()='Forms']");
-        elementHelper.clickJSLocator(formsMenu);
-
-        By practiceFormSunMenu = By.xpath("//span[text()='Practice Form']");
-        elementHelper.clickJSLocator(practiceFormSunMenu);
-
-        By firstNameElement = By.xpath("//input[@placeholder='First Name']");
         String firstNameValue = "Oana";
-        elementHelper.fillLocator(firstNameElement, firstNameValue);
-
-        By lastNameElement = By.xpath("//input[@placeholder='Last Name']");
         String lastNameValue = "Niga";
-        elementHelper.fillLocator(lastNameElement, lastNameValue);
-
-        By emailElement = By.xpath("//input[@placeholder='name@example.com']");
         String emailValue = "oananiga1@gmail.com";
-        elementHelper.fillLocator(emailElement, emailValue);
-
         String genderValue = "Female";
-        By genderOptionsElement = By.xpath("//input[@name='gender']");
-        List<WebElement> genderOptionsList = driver.findElements(genderOptionsElement);
-        if (genderValue.equals("Male")) {
-            elementHelper.clickJSLocator(genderOptionsList.get(0));
-        }
-        if (genderValue.equals("Female")) {
-            elementHelper.clickJSLocator(genderOptionsList.get(1));
-        }
-        if (genderValue.equals("Other")) {
-            elementHelper.clickJSLocator(genderOptionsList.get(2));
-        }
-
-        WebElement mobilePhoneElement = driver.findElement(By.xpath("//input[@placeholder='Mobile Number']"));
         String mobilePhoneValue = "0761544822";
-        mobilePhoneElement.sendKeys(mobilePhoneValue);
+        List<String> subjects = new ArrayList<>();
+        subjects.add("Maths");
+        subjects.add("Arts");
+        subjects.add("Biology");
+        List<String> hobbies = new ArrayList<>();
+        hobbies.add("Sports");
+        hobbies.add("Reading");
+        String aAdressValue = "Timisoara";
+        String pathValue = "src/test/resources/img.png";
 
+        PracticeFormPages practiceFormPages = new PracticeFormPages(driver);
+        practiceFormPages.fillFirstName(firstNameValue);
+        practiceFormPages.fillLastName(lastNameValue);
+        practiceFormPages.fillEmailValue(emailValue);
+        practiceFormPages.fillGenderValue(genderValue);
+        practiceFormPages.fillMobilePhoneValue(mobilePhoneValue);
+        practiceFormPages.fillSubjects(subjects);
+        practiceFormPages.fillHobbies(hobbies);
+        practiceFormPages.pictureUpload(pathValue);
+        practiceFormPages.fillCurrentAddress(aAdressValue);
 
-        pageHelper.scrollByPixel(0,500);
-
-        By subjectsElement = By.id("subjectsInput");
-        elementHelper.clickJSLocator(subjectsElement);
 
 
         //Lista de stringuri si sa adaug elementele pe care vreau sa le selectez
         //Trebuie sa parcurg lista pe care am facut o cu un for
         //In interiorul for ului trebuie sa completez pe rand fiecare valoare in subjectsElement si apoi sa apas un enter
 
-        List<String> subjects = new ArrayList<>();
-        subjects.add("Maths");
-        subjects.add("Arts");
-        subjects.add("Biology");
 
-
-        for (int index = 0; index < subjects.size(); index++) {
-//            subjectsElement.sendKeys(subjects.get(index));
-//            subjectsElement.sendKeys(Keys.ENTER);
-            elementHelper.fillPressLocator(subjectsElement,subjects.get(index),Keys.ENTER);
-        }
-
-        List<String> hobbies = new ArrayList<>();
-        hobbies.add("Sports");
-        hobbies.add("Reading");
-
-        List<WebElement> hobbiesOptionList = driver.findElements(By.xpath("//div[@id='hobbiesWrapper']//label"));
-        for (int index = 0; index < hobbiesOptionList.size(); index++) {
-            String currentText = hobbiesOptionList.get(index).getText();
-            if (hobbies.contains(currentText)) {
-                hobbiesOptionList.get(index).click();
-            }
-        }
-
-        By pictureElement = By.id("uploadPicture");
-        File file = new File("src/test/resources/img.png");
-        elementHelper.fillLocator(pictureElement,file.getAbsolutePath());
-
-        By currentAddress = By.id("currentAddress");
-        String currentAddressValue = "Timisoara, jud. Timis";
-        elementHelper.fillLocator(currentAddress, currentAddressValue);
 
         By stateElement = By.xpath("//div[text()='Select State']");
         elementHelper.clickJSLocator(stateElement);

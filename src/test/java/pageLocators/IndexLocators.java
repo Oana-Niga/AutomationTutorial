@@ -8,6 +8,8 @@ public class IndexLocators {
     public static final By alertsSubmenu = By.xpath("//span[text()='Alerts']");
     public static final By browserWindowsSubmenu = By.xpath("//span[text()='Browser Windows']");
     public static final  By framesSubmenu = By.xpath("//span[text()='Frames']");
+    public static final By formsMenu = By.xpath("//h5[text()='Forms']");
+    public static final By practiceFormSunMenu = By.xpath("//span[text()='Practice Form']");
 
 
 }

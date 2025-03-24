@@ -29,4 +29,13 @@ public class IndexPage {
     public void enterOnFrameSubmenu(){
         elementHelper.clickJSLocator(IndexLocators.framesSubmenu);
     }
+
+    public void enterOnFramesMenu(){
+        elementHelper.clickJSLocator(IndexLocators.formsMenu);
+    }
+
+    public void enterOnpracticeFormSubMenu(){
+        elementHelper.clickJSLocator(IndexLocators.practiceFormSunMenu);
+    }
+
 }
