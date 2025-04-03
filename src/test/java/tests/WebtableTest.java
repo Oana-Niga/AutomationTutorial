@@ -1,10 +1,13 @@
 package tests;
 
 import helpMethods.ElementHelper;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
+import helpMethods.TabWindowHelper;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.IndexPage;
+import pages.WebTablePage;
 import sharedData.SharedData;
 
 import java.util.List;
@@ -16,108 +19,53 @@ public class WebtableTest extends SharedData {
     @Test
     public void metodaTest (){
 
-        ElementHelper elementHelper = new ElementHelper(driver);
+        IndexPage indexPage = new IndexPage(driver);
+        indexPage.enterOnElementsMenu();
+        indexPage.enterOnWebTablesSubMenu();
 
-        //deschidem un browser
-        //driver=new ChromeDriver();
+        WebTablePage webTablePage = new WebTablePage(driver);
+        webTablePage.verifyTableContent(3);
 
-        //accesam o pagina web
-        //driver.get("https://demoqa.com");
+        webTablePage.addNewRecordButton();
 
-
-        By elementsMenu= By.xpath("//h5[text()='Elements']");
-        elementHelper.clickJSLocator(elementsMenu);
-
-        By webTableSubMenu= By.xpath("//span[text()='Web Tables']");
-        elementHelper.clickJSLocator(webTableSubMenu);
-
-        //facem browserul in modul maximize
-        //driver.manage().window().maximize();
-
-        By tableRowsListElement = By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even' or @class='rt-tr -odd']");
-        List<WebElement> tableRowsList = driver.findElements(tableRowsListElement);
-        Assert.assertEquals(tableRowsList.size(), 3,"Valoarea initiala a tabelului nu este 3.");
-
-
-        //identificam un element
-        By addElement = By.id("addNewRecordButton");
-        elementHelper.clickJSLocator(addElement);
-
-
-        By firstNameElement = By.id("firstName");
         String firstNameValue = "Niga";
-        elementHelper.fillLocator(firstNameElement, firstNameValue);
-
-        By lastNameElement = By.id("lastName");
         String lastNameValue = "Oana";
-        elementHelper.fillLocator(lastNameElement, lastNameValue);
-
-        By userEmailElement = By.id("userEmail");
         String userEmailValue = "oananiga1@gmail.com";
-        elementHelper.fillLocator(userEmailElement, userEmailValue);
-
-        By ageElement = By.id("age");
         String ageValue = "22";
-        elementHelper.fillLocator(ageElement, ageValue);
-
-        By salaryElement = By.id("salary");
         String salaryValue = "7000";
-        elementHelper.fillLocator(salaryElement, salaryValue);
-
-        By departmentElement = By.id("department");
         String departmentValue = "IT";
-        elementHelper.fillLocator(departmentElement, departmentValue);
+        int expectedSize = 4;
 
-        By submitElement = By.id("submit");
-        elementHelper.clickJSLocator(submitElement);
+        webTablePage.fillFirstName(firstNameValue);
+        webTablePage.filllastName(lastNameValue);
+        webTablePage.fillEmail(userEmailValue);
+        webTablePage.fillAge(ageValue);
+        webTablePage.fillSalary(salaryValue);
+        webTablePage.fillDepartment(departmentValue);
+        webTablePage.submitClick();
 
+        webTablePage.verifyTableContent(expectedSize);
 
-        tableRowsList = driver.findElements(tableRowsListElement);
-        Assert.assertEquals(tableRowsList.size(), 4,"Valoarea actuala a tabelului nu este 4.");
-        //Assert.assertTrue(expectedRow.contains(firstNameValue));
-        elementHelper.validateTextContainsElement(tableRowsList.get(3), firstNameValue);
-        elementHelper.validateTextContainsElement(tableRowsList.get(3), lastNameValue);
-        elementHelper.validateTextContainsElement(tableRowsList.get(3), userEmailValue);
-        elementHelper.validateTextContainsElement(tableRowsList.get(3), ageValue);
-        elementHelper.validateTextContainsElement(tableRowsList.get(3), salaryValue);
-        elementHelper.validateTextContainsElement(tableRowsList.get(3), departmentValue);
+        webTablePage.editClick();
 
+        String firstNameValueEdit = "NIgaa";
+        String lastNameValueEdit = "OanaA";
+        String userEmailValueEdit = "oananiga2@gmail.com";
+        String ageValueEdit = "23";
+        String salaryValueEdit = "6000";
+        String departmentValueEdit = "ITT";
+        int expectedSizeEdit = 4;
 
-        //edit functionality
-        By editElement = By.id("edit-record-4");
-        elementHelper.clickJSLocator(editElement);
+        webTablePage.verifyTableContent(expectedSizeEdit);
+        webTablePage.fillFirstName(firstNameValueEdit);
+        webTablePage.filllastName(lastNameValueEdit);
+        webTablePage.fillEmail(userEmailValueEdit);
+        webTablePage.fillAge(ageValueEdit);
+        webTablePage.fillSalary(salaryValueEdit);
+        webTablePage.fillDepartment(departmentValueEdit);
+        webTablePage.submitClick();
 
-
-        By editFirstNameElement = By.id("firstName");
-        String editFirstNameValue = "Popescu";
-        elementHelper.clearFillLocator(editFirstNameElement, editFirstNameValue);
-
-        By editlastNameElement = By.id("lastName");
-        String editlastNameValue = "Alexandra";
-        elementHelper.clearFillLocator(editlastNameElement, editlastNameValue);
-
-        By edituserEmailElement = By.id("userEmail");
-        String edituserEmailValue = "popescu.alexandra@gmail.com";
-        elementHelper.clearFillLocator(edituserEmailElement, edituserEmailValue);
-
-        By editageElement = By.id("age");
-        String editageValue = "25";
-        elementHelper.clearFillLocator(editageElement, editageValue);
-
-        By editsalaryElement = By.id("salary");
-        String editsalaryValue = "9000";
-        elementHelper.clearFillLocator(editsalaryElement, editsalaryValue);
-
-        By editdepartmentElement = By.id("department");
-        String editdepartmentValue = "qa";
-        elementHelper.clearFillLocator(editdepartmentElement, editdepartmentValue);
-
-        By ssubmitElement = By.id("submit");
-        elementHelper.clickJSLocator(ssubmitElement);
-
-
-        By deleteElement= By.id("delete-record-4");
-        elementHelper.clickJSLocator(deleteElement);
-
+        webTablePage.deleteRecords();
+        webTablePage.verifyTableContent(3);
     }
 }

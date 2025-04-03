@@ -14,6 +14,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static pageLocators.PracticeFormLocators.stateInputElement;
+
 public class PracticeFormTest extends SharedData {
 
 
@@ -39,6 +41,10 @@ public class PracticeFormTest extends SharedData {
         hobbies.add("Reading");
         String aAdressValue = "Timisoara";
         String pathValue = "src/test/resources/img.png";
+        String stateValue = "NCR";
+        String cityValue = "Delhi";
+        String expectedMessage = "Thanks for submitting the form";
+
 
         PracticeFormPages practiceFormPages = new PracticeFormPages(driver);
         practiceFormPages.fillFirstName(firstNameValue);
@@ -50,6 +56,11 @@ public class PracticeFormTest extends SharedData {
         practiceFormPages.fillHobbies(hobbies);
         practiceFormPages.pictureUpload(pathValue);
         practiceFormPages.fillCurrentAddress(aAdressValue);
+        practiceFormPages.fillState(stateValue);
+        practiceFormPages.fillCity(cityValue);
+        practiceFormPages.submitClick();
+        practiceFormPages.validateThankYouMessage(expectedMessage);
+        practiceFormPages.validateEntireTable(firstNameValue, lastNameValue, emailValue, genderValue, mobilePhoneValue, aAdressValue, stateValue, cityValue, subjects, hobbies);
 
 
 
@@ -59,45 +70,21 @@ public class PracticeFormTest extends SharedData {
 
 
 
-        By stateElement = By.xpath("//div[text()='Select State']");
-        elementHelper.clickJSLocator(stateElement);
 
-        By stateInputElement = By.id("react-select-3-input");
-        String stateValue = "NCR";
-//        stateInputElement.sendKeys(stateValue);
-//        stateInputElement.sendKeys(Keys.ENTER);
-        elementHelper.fillPressLocator(stateInputElement, stateValue, Keys.ENTER);
-
-        By cityElement = By.xpath("//div[text()='Select City']");
-        elementHelper.clickJSLocator(cityElement);
-
-        By cityInputElement = By.id("react-select-4-input");
-        String cityValue = "Delhi";
-//        cityInputElement.sendKeys(cityValue);
-//        cityInputElement.sendKeys(Keys.ENTER);
-        elementHelper.fillPressLocator(cityInputElement, cityValue, Keys.ENTER);
-
-        By submitButtonElement = By.id("submit");
-        elementHelper.clickJSLocator(submitButtonElement);
-
-        By thankYouElement = By.id("example-modal-sizes-title-lg");
-        String expectedMessage = "Thanks for submitting the form";
-        elementHelper.validateTextLocator(thankYouElement, expectedMessage);
-
-        By rowsListElement = By.xpath("//tbody/tr");
-        List<WebElement> rowsList = driver.findElements(rowsListElement);
-        elementHelper.validateTextContainsElement(rowsList.get(0),"Student Name");
-        elementHelper.validateTextContainsElement(rowsList.get(0), firstNameValue);
-        elementHelper.validateTextContainsElement(rowsList.get(0), lastNameValue);
-        elementHelper.validateTextContainsElement(rowsList.get(1), emailValue);
-        elementHelper.validateTextContainsElement(rowsList.get(2), genderValue);
-
-        elementHelper.validateTextContainsElement(rowsList.get(2), "Gender");
-        elementHelper.validateTextContainsElement(rowsList.get(2), genderValue);
-
-        String subjectsStringValue = String.join(", ", subjects);
-        elementHelper.validateTextContainsElement(rowsList.get(5), "Subjects");
-        elementHelper.validateTextContainsElement(rowsList.get(5), subjectsStringValue);
+//        By rowsListElement = By.xpath("//tbody/tr");
+//        List<WebElement> rowsList = driver.findElements(rowsListElement);
+//        elementHelper.validateTextContainsElement(rowsList.get(0),"Student Name");
+//        elementHelper.validateTextContainsElement(rowsList.get(0), firstNameValue);
+//        elementHelper.validateTextContainsElement(rowsList.get(0), lastNameValue);
+//        elementHelper.validateTextContainsElement(rowsList.get(1), emailValue);
+//        elementHelper.validateTextContainsElement(rowsList.get(2), genderValue);
+//
+//        elementHelper.validateTextContainsElement(rowsList.get(2), "Gender");
+//        elementHelper.validateTextContainsElement(rowsList.get(2), genderValue);
+//
+//        String subjectsStringValue = String.join(", ", subjects);
+//        elementHelper.validateTextContainsElement(rowsList.get(5), "Subjects");
+//        elementHelper.validateTextContainsElement(rowsList.get(5), subjectsStringValue);
 
     }
 }

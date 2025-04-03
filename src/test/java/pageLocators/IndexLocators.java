@@ -7,9 +7,11 @@ public class IndexLocators {
     public static final By alertFrameWindowsMenu = By.xpath("//h5[text()='Alerts, Frame & Windows']");
     public static final By alertsSubmenu = By.xpath("//span[text()='Alerts']");
     public static final By browserWindowsSubmenu = By.xpath("//span[text()='Browser Windows']");
-    public static final  By framesSubmenu = By.xpath("//span[text()='Frames']");
+    public static final By framesSubmenu = By.xpath("//span[text()='Frames']");
     public static final By formsMenu = By.xpath("//h5[text()='Forms']");
     public static final By practiceFormSunMenu = By.xpath("//span[text()='Practice Form']");
+    public static final By elementsMenu= By.xpath("//h5[text()='Elements']");
+    public static final By webTableSubMenu= By.xpath("//span[text()='Web Tables']");
 
 
 }
