@@ -1,6 +1,7 @@
 package pages;
 
 import helpMethods.ElementHelper;
+import loggerUtility.LoggerUtility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,34 +34,42 @@ public class WebTablePage {
 
     public void addNewRecordButton(){
         elementHelper.clickJSLocator(addElement);
+        LoggerUtility.infoTest("The user clicks Add Button");
     }
 
     public void fillFirstName(String firstNameValue){
         elementHelper.fillLocator(firstNameElement, firstNameValue);
+        LoggerUtility.infoTest("The user fills first name field");
     }
 
     public void filllastName(String lastNameValue){
         elementHelper.fillLocator(lastNameElement, lastNameValue);
+        LoggerUtility.infoTest("The user fills last name field");
     }
 
     public void fillEmail(String userEmailValue){
         elementHelper.fillLocator(userEmailElement, userEmailValue);
+        LoggerUtility.infoTest("The user fills email field");
     }
 
     public void fillAge(String ageValue){
         elementHelper.fillLocator(ageElement, ageValue);
+        LoggerUtility.infoTest("The user fills age field");
     }
 
     public void fillSalary(String salaryValue){
         elementHelper.fillLocator(salaryElement, salaryValue);
+        LoggerUtility.infoTest("The user fills salary field");
     }
 
     public void fillDepartment(String departmentValue){
         elementHelper.fillLocator(departmentElement, departmentValue);
+        LoggerUtility.infoTest("The user fills department field");
     }
 
     public void submitClick(){
         elementHelper.clickJSLocator(submitElement);
+        LoggerUtility.infoTest("The user clicks Submit");
     }
 
     public void verifyTableContent(int expectedSize, String firstNameValue, String lastNameValue, String userEmailValue,
@@ -77,9 +86,11 @@ public class WebTablePage {
 
     public void deleteRecords(){
         elementHelper.clickJSLocator(deleteElement);
+        LoggerUtility.infoTest("The user deletes the record");
     }
 
     public void editClick(){
         elementHelper.clickJSLocator(editElement);
+        LoggerUtility.infoTest("The user pressed the edit button");
     }
 }
